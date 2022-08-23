@@ -2,8 +2,17 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 from flask_marshmallow import Marshmallow
+import os
+
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
+
+app.config["JWT_SECRET_KEY"] = "sakldjoi1209@lkasnd@@a!_+"
+jwt = JWTManager(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:nsstars@localhost/flask'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -75,10 +84,18 @@ def delete_article(id):
     db.session.commit()
 
     return article_schema.jsonify(article)
+
+#AUTHENTICATION
+@app.route('/token', methods=['POST'])
+def create_token():
+    email = request.json.get("email",None)
+    password = request.json.get("password",None)
+    if email != "test" or password != "test":
+        return jsonify({"msg":"Bad username or password"}), 401
+    
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token = access_token)
 ###############################################
 if __name__ == "__main__":
     app.run(host = '192.168.56.1',port = 3000, debug=True) 
 
-# db.create_all()
-# db.session.commit()
-#39:00

@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Create from './components/Create';
 import Details from './components/Details';
 import Edit from './components/Edit';
+import Login from './components/Login';
 
 import Contants from 'expo-constants';
 
@@ -18,6 +19,7 @@ function App() { //Imamo funkcionalne(rcf) i klasne komponente(rce), ovo je funk
   return (
     <View style={styles.container}>
       <Stack.Navigator>
+        <Stack.Screen name = "Login" component={Login}/>
         <Stack.Screen name = "Home" component={Home}/>
         <Stack.Screen name = "Create" component={Create}/>
         <Stack.Screen name = "Details" component={Details}/>
