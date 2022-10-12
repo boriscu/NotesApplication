@@ -12,8 +12,9 @@
 2. https://www.youtube.com/watch?v=LlvBzyy-558&ab_channel=PedroTech
 3. https://www.youtube.com/watch?v=8-W2O_R95Pk&ab_channel=4Geeks
 
-## Trelo - TODO
-- ovde cemo pisati taskove ko sta radi
+## Trelo
+- Ovde cemo otvarati kartice ko sta radi i voditi evidenciju
+- link : https://trello.com/invite/b/RyeYFE1e/e0518e087224f8c5c7c90b3e90c8f4a1/group-project-aplikacija
 
 ## Uputstvo
 - Pullovati ovaj ceo repozitorijum git init -> git add remote origin (kopiran http) -> git pull origin master
