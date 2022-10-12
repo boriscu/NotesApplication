@@ -1,11 +1,11 @@
-# Zasto bas react i flask
-- Na faksu cemo manje vise svi raditi python i javascript pa nam je ovo i najkorisnije. Takodje flutter je ok opcija ali ne pruza nista to react vec nema, a da ucimo dart samo zbog toga je cimanje + u srbiji je react mnogo trazeniji za sad.
-- Ako ste bas za flutter mozemo krenuti ispocetka sve u njemu
+# PRVI ZADATAK
+- Neka svako u svom branchu doda nesto u README i pushuje na repozitorijum
 
 # Ideje
 - Gym themed aplikacija
 - Moje krpice fazon aplikacija
 - Kupovina odece aplikacija - renderovanje 
+...
 
 ## Resursi(Redom)
 1. https://www.youtube.com/watch?v=mEUSNId1Hfc&ab_channel=ParwizForogh
@@ -28,3 +28,7 @@
 
 ## Kontakt
 - Za svu komunikaciju predlazem da napravimo whatsapp grupu
+
+## Zasto bas react i flask
+- Na faksu cemo manje vise svi raditi python i javascript pa nam je ovo i najkorisnije. Takodje flutter je ok opcija ali ne pruza nista to react vec nema, a da ucimo dart samo zbog toga je cimanje + u srbiji je react mnogo trazeniji za sad.
+- Ako ste bas za flutter mozemo krenuti ispocetka sve u njemu
