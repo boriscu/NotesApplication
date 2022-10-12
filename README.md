@@ -28,7 +28,7 @@
 - Sve sto radite, radite u svom branchu. Kucate git branch vaseimeBranch -> git checkout vaseimeBranch -> git add, git commit -> git push origin vaseimeBranch i kad zavrsite sta imate: Na githabu idete na create pull request u prvi box stavite master a u drugi ime vase grane i kliknete na zeleno dugme create pull request
 
 ## Kontakt
-- Posaljite mi friend request na githabu da mogu da vas dodam kao kolaboratore
+- Posaljite mi git username da mogu da vas dodam kao kolaboratore na repozitorijum
 - Za svu komunikaciju predlazem da napravimo whatsapp grupu
 
 ## Zasto bas react i flask
