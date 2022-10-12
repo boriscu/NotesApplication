@@ -25,7 +25,7 @@
 -NAPOMENA: Za sad nemamo oficijalnu bazu tako da ce svako morati da ima lokalnu, potrebno je da skinete postgreSQL i da napravite vas novi database, kad ste to uradili u file-u app.py cete videti u 8 liniji app.config[SQLALCHEMY...] tu je potrebno napisati umesto nsstars vasu lozinku odnosno '' ukoliko je nemate
 
 ## Dalja logistika
-- Sve sto radite, radite u svom branchu. Kucate git branch vaseimeBranch -> git checkout vaseimeBranch -> git add, git commit -> git push origin vaseimeBranch i kad zavrsite sta imate: git checkout master -> git merge vaseimeBranch -> git push origin master
+- Sve sto radite, radite u svom branchu. Kucate git branch vaseimeBranch -> git checkout vaseimeBranch -> git add, git commit -> git push origin vaseimeBranch i kad zavrsite sta imate: Na githabu idete na create pull request u prvi box stavite master a u drugi ime vase grane i kliknete na zeleno dugme create pull request
 
 ## Kontakt
 - Za svu komunikaciju predlazem da napravimo whatsapp grupu
