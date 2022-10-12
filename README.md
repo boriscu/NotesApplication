@@ -1,3 +1,7 @@
+# Zasto bas react i flask
+- Na faksu cemo manje vise svi raditi python i javascript pa nam je ovo i najkorisnije. Takodje flutter je ok opcija ali ne pruza nista to react vec nema, a da ucimo dart samo zbog toga je cimanje + u srbiji je react mnogo trazeniji za sad.
+- Ako ste bas za flutter mozemo krenuti ispocetka sve u njemu
+
 # Ideje
 - Gym themed aplikacija
 - Moje krpice fazon aplikacija
@@ -15,8 +19,9 @@
 - Pullovati ovaj ceo repozitorijum git init -> git add remote origin (kopiran http) -> git pull origin master
 - Pokretanje servera sa cd .\backend\ -> python app.py
 - U novom shellu kucaj npm install da bi dobio sve node module
-- Nakon toga u tom istom shellu kucaj npm start, mozes povezati android uredjaj usbom za komp ili skinuti neki emulator(Android studio) i u konzoli ce biti napisano Press a to open Android
--NAPOMENA: Za sad nemamo oficijalnu bazu tako da ce svako morati da ima lokalnu, potrebno je da sginete postgreSQL i da napravite vas novi database, kad ste to uradili u file-u app.py cete videti u 8 liniji app.config[SQLALCHEMY...] tu je potrebno napisati umesto nsstars vasu lozinku odnosno '' ukoliko je nemate
+- Nakon toga u tom istom shellu kucaj npm start
+- Mozes povezati android uredjaj usbom za komp ili skinuti neki emulator(Android studio) i u konzoli ce biti napisano Press a to open Android
+-NAPOMENA: Za sad nemamo oficijalnu bazu tako da ce svako morati da ima lokalnu, potrebno je da skinete postgreSQL i da napravite vas novi database, kad ste to uradili u file-u app.py cete videti u 8 liniji app.config[SQLALCHEMY...] tu je potrebno napisati umesto nsstars vasu lozinku odnosno '' ukoliko je nemate
 
 ## Dalja logistika
 - Sve sto radite, radite u svom branchu. Kucate git branch vaseimeBranch -> git checkout vaseimeBranch i onda sve commitujetet dodajete odatle i kad zavrsite sta imate saljete meni zahtev za merge i ja ga pregledam
