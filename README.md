@@ -1,5 +1,5 @@
 # PRVI ZADATAK
-- Neka svako u svom branchu doda nesto u README i pushuje na repozitorijum
+- Pogledati na Trelo-u zadatak, odraditi ga, i oznaciti da je zavrsen
 
 # Ideje
 - Gym themed aplikacija
@@ -25,7 +25,7 @@
 -NAPOMENA: Za sad nemamo oficijalnu bazu tako da ce svako morati da ima lokalnu, potrebno je da skinete postgreSQL i da napravite vas novi database, kad ste to uradili u file-u app.py cete videti u 8 liniji app.config[SQLALCHEMY...] tu je potrebno napisati umesto nsstars vasu lozinku odnosno '' ukoliko je nemate
 
 ## Dalja logistika
-- Sve sto radite, radite u svom branchu. Kucate git branch vaseimeBranch -> git checkout vaseimeBranch i onda sve commitujetet dodajete odatle i kad zavrsite sta imate saljete meni zahtev za merge i ja ga pregledam
+- Sve sto radite, radite u svom branchu. Kucate git branch vaseimeBranch -> git checkout vaseimeBranch -> git add, git commit -> git push origin vaseimeBranch i kad zavrsite sta imate saljete meni zahtev za merge i ja ga pregledam
 
 ## Kontakt
 - Za svu komunikaciju predlazem da napravimo whatsapp grupu
