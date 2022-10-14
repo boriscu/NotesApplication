@@ -99,7 +99,6 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
         mode="date"
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
-        isDarkModeEnabled = {true}
       />
       <FlatList
         data = {data}
