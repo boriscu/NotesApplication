@@ -35,4 +35,5 @@
 - Na faksu cemo manje vise svi raditi python i javascript pa nam je ovo i najkorisnije. Takodje flutter je ok opcija ali ne pruza nista to react vec nema, a da ucimo dart samo zbog toga je cimanje + u srbiji je react mnogo trazeniji za sad.
 - Ako ste bas za flutter mozemo krenuti ispocetka sve u njemu
 
+boris
 anja<3
