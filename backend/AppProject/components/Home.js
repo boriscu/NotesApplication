@@ -1,16 +1,48 @@
 import React, {useState, useEffect} from 'react'
-import {View, Text, StyleSheet, Button, FlatList} from 'react-native'
-import {Card, FAB} from 'react-native-paper'; //FAB je Floating action button
+import {View, Text, StyleSheet,FlatList} from 'react-native'
+import {Card, FAB, Button} from 'react-native-paper'; //FAB je Floating action button
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 //rfc tabtab i dobijemo funkcionalnu komponentu
 export default function Home(props) { //Props ne mozemo menjati, sta prosledimo u zagradama to uvek stoji, zbog toga mozemo koristiti state
   //Dok kod klasne komponente mozemo menjati props
   
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
   //Postoji 3 tipa promenljivih u riektu, const var i let. Const se ne menja, var moze i ne mora, let se menja. Takodje var je globalna prom a let samo u bloku koda
   //Usestate hook koristimo za promenu variable u realnom vremenu, standard je const[promenljiva, setPromenljiva] = useState(inicijalnaVr) 
   //Da bi menjali prom ne mozemo samo reci data++ nego moramo koristiti set funkciju, npr setProm(prom+1)
   const [data, setData] = useState([])  
   const [loading, setIsLoading] = useState(true)
+
+  let initDate = new Date();
+  let currentDay = initDate.getDate();
+  let currentMonth = monthNames[initDate.getMonth()];
+  let currentYear = initDate.getFullYear();
+  let currentDate = `${currentDay}-${currentMonth}-${currentYear}`
+  const [date, setDate] = useState(currentDate)
+
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    let day = date.getDate();
+    let month = monthNames[date.getMonth()];
+    let year = date.getFullYear();
+    let currentDate = `${day}-${month}-${year}`;
+    
+    setDate(currentDate)
+    hideDatePicker();
+  };
   
   /*REDUCE HOOK
   const [state, dispatch] = useReducer(reducer, {count: 0, showText: true}) 
@@ -61,6 +93,14 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
   //Ovde je onPress realizovano funkcionalno
   return (
     <View style={{flex:1}}>
+      <Button onPress={showDatePicker}>{date.toString()}</Button>
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+        isDarkModeEnabled = {true}
+      />
       <FlatList
         data = {data}
         renderItem = {({item}) => {return renderData(item)}}
