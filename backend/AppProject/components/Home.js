@@ -17,12 +17,7 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
   const [data, setData] = useState([])  
   const [loading, setIsLoading] = useState(true)
 
-  let initDate = new Date();
-  let currentDay = initDate.getDate();
-  let currentMonth = monthNames[initDate.getMonth()];
-  let currentYear = initDate.getFullYear();
-  let currentDate = `${currentDay}-${currentMonth}-${currentYear}`
-  const [date, setDate] = useState(currentDate)
+  const [date, setDate] = useState(new Date())
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -40,9 +35,29 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
     let year = date.getFullYear();
     let currentDate = `${day}-${month}-${year}`;
     
-    setDate(currentDate)
+    setDate(date)
     hideDatePicker();
   };
+
+  const incrementDate = () => {
+    let newDate = new Date(date.getTime())
+    newDate.setDate(date.getDate() - 1)
+    setDate(newDate)
+  }
+
+  const decrementDate = () => {
+    let newDate = new Date(date.getTime())
+    newDate.setDate(date.getDate() + 1)
+    setDate(newDate)
+  }
+
+  function dateTostring(d){
+    let currentDay = d.getDate();
+    let currentMonth = monthNames[d.getMonth()];
+    let currentYear = d.getFullYear();
+    let currentDate = `${currentDay}-${currentMonth}-${currentYear}`
+    return currentDate
+  }  
   
   /*REDUCE HOOK
   const [state, dispatch] = useReducer(reducer, {count: 0, showText: true}) 
@@ -93,12 +108,16 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
   //Ovde je onPress realizovano funkcionalno
   return (
     <View style={{flex:1}}>
-      <Button onPress={showDatePicker}>{date.toString()}</Button>
+      <View style = {{flexDirection: "row", marginLeft: 20, justifyContent: 'space-evenly'}}>
+        <Button onPress = {incrementDate}>{'<'}</Button>
+        <Button onPress={showDatePicker}>{dateTostring(date)}</Button>
+        <Button onPress = {decrementDate}>{'>'}</Button>
+      </View>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
         onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
+        onCancel={hideDatePicker}      
       />
       <FlatList
         data = {data}
