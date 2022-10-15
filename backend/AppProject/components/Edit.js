@@ -44,7 +44,6 @@ export default function Edit(props) {
 
         <Button
             style = {{margin:10}}
-            icon = "pencil"
             mode = "contained"
             onPress={()=>updateData()}
         >Update article</Button>
