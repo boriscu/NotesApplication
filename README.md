@@ -19,7 +19,7 @@
 ## Uputstvo
 - Pre svega potrebno vam je da imate [node.js](https://nodejs.org/en/download/) i [python](https://www.python.org/downloads/) (pazi da dodas i [pathove](https://www.configserverfirewall.com/windows-10/add-python-to-path-windows-10/))
 - Za editor koristi vs code i skini ekstenziju za python, otvaras powershell sa ctrl+~ i tu onda sve kucas normalno, s desne strane imas plusic da otvoris jos koji
-- Pullovati ovaj ceo repozitorijum git init -> git remote add origin (kopiran http) -> git pull origin master
+- Pullovati ovaj ceo repozitorijum git init -> git remote add origin https://github.com/boriscu/groupProject.git -> git pull origin master
 - Pozicionirati se sa cd u .\backend\ i izvrsiti sledece komande pip install Flask, pip install Flask-SQLAlchemy, pip install mysqlclient, pip install flask-marshmallow, pip install marshmallow-sqlalchemy
 - Pokretanje servera sa cd .\backend\ -> python app.py
 - Zatim je potrebno instalirati [postgresSQL](https://www.postgresql.org/download/) i poterati pgadmin (napomena izbacice vam stack builder instalaciju samo idite x ne treba vam to)
