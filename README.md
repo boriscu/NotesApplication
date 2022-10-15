@@ -27,7 +27,7 @@
 - U novom shellu kucaj npm install da bi dobio sve node module
 - Nakon toga u tom istom shellu kucaj npm start
 - Mozes povezati android uredjaj usbom za komp ili skinuti neki emulator(Android studio) i u konzoli ce biti napisano Press a to open Android
-- NAPOMENA: Za sad nemamo oficijalnu bazu tako da ce svako morati da ima lokalnu, potrebno je da skinete postgreSQL i da napravite vas novi database, kad ste to uradili u file-u app.py cete videti u 8 liniji app.config[SQLALCHEMY...] tu je potrebno napisati umesto nsstars vasu lozinku odnosno '' ukoliko je nemate
+- NAPOMENA: Za sad nemamo oficijalnu bazu tako da ce svako morati da ima lokalnu, u file-u app.py cete videti u 8 liniji app.config[SQLALCHEMY...] tu je potrebno napisati umesto nsstars vasu lozinku odnosno '' ukoliko je nemate i nakon toga umesto ip-a u app.py uneti vas ipv4 (da bi video ovo otvoris cmd i kucas ipconfig)
 - OPCIONO: Postman client je odlican za debagovanje http rikvestova i rad sa bazom
 
 ## Dalja logistika
