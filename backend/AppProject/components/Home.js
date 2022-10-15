@@ -30,11 +30,6 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
   };
 
   const handleConfirm = (date) => {
-    let day = date.getDate();
-    let month = monthNames[date.getMonth()];
-    let year = date.getFullYear();
-    let currentDate = `${day}-${month}-${year}`;
-    
     setDate(date)
     hideDatePicker();
   };
@@ -132,7 +127,7 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
         small = {false}
         icon = "plus"
         theme = {{colors:{accent:"green"}}}
-        onPress = {()=>props.navigation.navigate('Create')}
+        onPress = {()=>props.navigation.navigate('Create', {uidate:date.toJSON()})}
       />
    </View>
   )

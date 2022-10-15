@@ -17,16 +17,18 @@ class Articles(db.Model):
     title = db.Column(db.String(100))
     body = db.Column(db.Text)
     date = db.Column(db.DateTime, default = datetime.datetime.now)
+    uidate = db.Column(db.Date)
     
-    def __init__(self, title, body):
+    def __init__(self, title, body, uidate):
         self.title = title
         self.body = body
+        self.uidate = uidate
 
 #Serijalizacija, konvertuje kompleksne tipove podataka(json) u i iz pajtonovih objekata
 #load - deserijalizacije, dump - serijalizacija
 class ArticleSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'title', 'body', 'date')
+        fields = ('id', 'title', 'body', 'date', 'uidate')
 
 article_schema = ArticleSchema()
 articles_schema = ArticleSchema(many = True)   
@@ -49,8 +51,9 @@ def post_details(id):
 def add_article():
     title = request.json['title']
     body = request.json['body']
+    uidate = request.json['uidate']
 
-    articles = Articles(title,body) #Kreira artikl sa json title-om i body-em
+    articles = Articles(title,body,uidate) #Kreira artikl sa json title-om i body-em
     db.session.add(articles)
     db.session.commit()
     return article_schema.jsonify(articles)
@@ -61,9 +64,11 @@ def update_articles(id):
 
     title = request.json['title'] #Uzima title i body koji smo mu mi otkucali 
     body = request.json['body']
+    uidate = request.json['uidate']
 
     article.title = title
     article.body = body
+    article.uidate = uidate
 
     db.session.commit()
     return article_schema.jsonify(article)
