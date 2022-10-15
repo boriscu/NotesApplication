@@ -25,7 +25,7 @@
 - U pgadminu, uci u grupu i odraditi desni klik -> create new database -> nazvati je flask
 - Pozicionirati se opet u .\backend\ i otkucati sledece python -> from app import db -> db.create_all()
 - U novom shellu kucaj npm install da bi dobio sve node module
-- Nakon toga u tom istom shellu kucaj npm start
+- Nakon toga u tom istom shellu kucaj npm start (Da bi aplikacija u potpunosti radila mora u isto vreme trcati i app.py u drugom prozoru
 - Mozes povezati android uredjaj usbom za komp ili skinuti neki emulator(Android studio) i u konzoli ce biti napisano Press a to open Android
 - NAPOMENA: Za sad nemamo oficijalnu bazu tako da ce svako morati da ima lokalnu, u file-u app.py cete videti u 8 liniji app.config[SQLALCHEMY...] tu je potrebno napisati umesto nsstars vasu lozinku odnosno '' ukoliko je nemate i nakon toga umesto ip-a u app.py uneti vas ipv4 (da bi video ovo otvoris cmd i kucas ipconfig)
 - OPCIONO: Postman client je odlican za debagovanje http rikvestova i rad sa bazom
