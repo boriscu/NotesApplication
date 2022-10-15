@@ -17,8 +17,13 @@
 - link : https://trello.com/invite/b/RyeYFE1e/e0518e087224f8c5c7c90b3e90c8f4a1/group-project-aplikacija
 
 ## Uputstvo
-- Pullovati ovaj ceo repozitorijum git init -> git add remote origin (kopiran http) -> git pull origin master
+- Pre svega potrebno vam je da imate node.js i python (pazi da dodas i pathove)
+- Pullovati ovaj ceo repozitorijum git init -> git remote add origin (kopiran http) -> git pull origin master
+- Pozicionirati se sa cd u .\backend\ i izvrsiti sledece komande pip install Flask, pip install Flask-SQLAlchemy, pip install mysqlclient, pip install flask-marshmallow
 - Pokretanje servera sa cd .\backend\ -> python app.py
+- Zatim je potrebno instalirati postgresSQL i poterati pgadmin (napomena izbacice vam stack builder instalaciju samo idite x ne treba vam to)
+- U pgadminu, uci u grupu i odraditi desni klik -> create new database -> nazvati je flask
+- Pozicionirati se opet u .\backend\ i otkucati sledece python -> from app import db -> db.create_all()
 - U novom shellu kucaj npm install da bi dobio sve node module
 - Nakon toga u tom istom shellu kucaj npm start
 - Mozes povezati android uredjaj usbom za komp ili skinuti neki emulator(Android studio) i u konzoli ce biti napisano Press a to open Android
