@@ -28,12 +28,12 @@
 - Pozicionirati se opet u .\backend\ i otkucati sledece python -> from app import db -> db.create_all(), ako ti ovde izbaci gresku na kraju koda u app.py otkucaj sledece: 
 with app.app_context():
     db.create_all()
-i normalno pokreni porogram sa python app.py
-- U novom shellu kucaj npm install da bi dobio sve node module
+i normalno pokreni program sa python app.py(pozicioniran si u ./backend)
+- U novom shellu kucaj cd ./backend/AppPorject -> npm install da bi dobio sve node module
 - Da bi instalirali react native i expo client otkucati npm install -g expo-cli
 - Nakon toga u tom istom shellu kucaj npm start (Da bi aplikacija u potpunosti radila mora u isto vreme trcati i app.py u drugom prozoru
 - Mozes povezati android uredjaj(skini aplikaciju expo go sa google play storea) usbom(videces opciju i da skeniras qr kod al nemoj to presporo je i stalno ispadaju network greske) za komp ili skinuti neki emulator odnosno [Android Studio](https://www.google.com/search?q=android+studio&oq=android+studi&aqs=chrome.0.35i39j69i57j0i512l3j69i60j69i61l2.1606j0j7&sourceid=chrome&ie=UTF-8) a za namestanje emmulatora klikni [ovde](https://www.youtube.com/watch?v=x_lvdLil0Fk&ab_channel=Sarthak%27sTricks) i u konzoli ce biti napisano Press a to open Android
-- NAPOMENA: Za sad nemamo oficijalnu bazu tako da ce svako morati da ima lokalnu, u file-u app.py cete videti u 8 liniji app.config[SQLALCHEMY...] tu je potrebno napisati umesto nsstars vasu lozinku odnosno '' ukoliko je nemate i nakon toga umesto ip-a u app.py uneti vas ipv4 (da bi video ovo otvoris cmd i kucas ipconfig)
+- NAPOMENA: Za sad nemamo oficijalnu bazu tako da ce svako morati da ima lokalnu, u file-u app.py cete videti u 8 liniji app.config[SQLALCHEMY...] tu je potrebno napisati umesto nsstars vasu lozinku odnosno '' ukoliko je nemate i nakon toga umesto ip-a u app.py uneti vas ipv4 (da bi video ovo otvoris cmd i kucas ipconfig). Jos sem na tom mestu gde god naidjete na moj ip u formama(create, edit, home...) upisite svoj
 - OPCIONO: Postman client je odlican za debagovanje http rikvestova i rad sa bazom
 - GRESKE: Gresaka nema u aplikaciji tako da ako nesto ne radi do tvog setapa je, pisi u grupu nas troje je uspelo sve da namesti neko je verovatno imao problem kao i ti. Sem toga za sve ovo postoji google samo kopiraj gresku 99% je da ce ti izbaciti resenje
 
