@@ -5,7 +5,7 @@ from flask_marshmallow import Marshmallow
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:nsstars@localhost/flask'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:anja1234@localhost/flask'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -77,8 +77,8 @@ def delete_article(id):
     return article_schema.jsonify(article)
 ###############################################
 if __name__ == "__main__":
-    app.run(host = '192.168.56.1',port = 3000, debug=True) 
-
-# db.create_all()
-# db.session.commit()
+    app.run(host = '192.168.0.32',port = 3000, debug=True) 
+    
+#db.create_all()
+#db.session.commit()
 #39:00
