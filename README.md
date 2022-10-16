@@ -23,7 +23,8 @@
 - Pozicionirati se sa cd u .\backend\ i izvrsiti sledece komande pip install Flask, pip install Flask-SQLAlchemy, pip install mysqlclient, pip install flask-marshmallow, pip install marshmallow-sqlalchemy
 - Pokretanje servera sa cd .\backend\ -> python app.py
 - Zatim je potrebno instalirati [postgresSQL](https://www.postgresql.org/download/) i poterati pgadmin (napomena izbacice vam stack builder instalaciju samo idite x ne treba vam to)
-- U pgadminu, uci u grupu i odraditi desni klik -> create new database -> nazvati je flask
+- U pgadminu, uci u grupu i odraditi desni klik -> create new database -> nazvati je flask(malim slovima sve obavezno)
+- Pre sledeceg koraka pogledaj napomenu na kraju uputstva
 - Pozicionirati se opet u .\backend\ i otkucati sledece python -> from app import db -> db.create_all(), ako ti ovde izbaci gresku na kraju koda u app.py otkucaj sledece: 
 with app.app_context():
     db.create_all()
