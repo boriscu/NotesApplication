@@ -36,13 +36,13 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
 
   const incrementDate = () => {
     let newDate = new Date(date.getTime())
-    newDate.setDate(date.getDate() - 1)
+    newDate.setDate(date.getDate() + 1)
     setDate(newDate)
   }
 
   const decrementDate = () => {
     let newDate = new Date(date.getTime())
-    newDate.setDate(date.getDate() + 1)
+    newDate.setDate(date.getDate() - 1)
     setDate(newDate)
   }
 
@@ -70,23 +70,30 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
   }
   I onda posle u htmlu pristupamo sa {state.count}, {state.showText} a kod onClicka kazemo dispatch({type:"INCREMENT"})
   */
-
   const loadData = () => {
-    fetch('http://192.168.56.1:3000/get', {
+    fetch(`http://192.168.56.1:3000/get_by_date/${dateTostring(date)}`, {
       method:'GET'
     })
     .then(resp => resp.json()) //Odavde dobijemo article
     .then(article => {
       setData(article) //data = article
       setIsLoading(false)
+      errCount = 0
     })
-    .catch(error => console.log(error))
+    .catch(error => {
+      if(error.message == "Network request failed")
+      {
+        //TODO smisliti resenje
+      }
+      else
+        console.log(error)
+    })
   }
 
   //Poziva se svaki put kada se stranica re-renderuje, napomena svaki put kad promenimo state stranice ona se re-renderuje(useState)
   useEffect(() => {
     loadData()
-  }, []) //U [] idu sva stanja koja zelimo da pratimo, u nasem slucaju ne pratimo ni jedno posebno ali mogli smo napisati [data]
+  }, [data]) //U [] idu sva stanja koja zelimo da pratimo, u nasem slucaju ne pratimo ni jedno posebno ali mogli smo napisati [data]
   //Preporucljivo je uvek staviti [] na kraj da se ne bi pozivalo za sve, nastane haos
 
   const clickedItem = (data) => {
@@ -104,9 +111,9 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
   return (
     <View style={{flex:1}}>
       <View style = {{flexDirection: "row", marginLeft: 20, justifyContent: 'space-evenly'}}>
-        <Button onPress = {incrementDate}>{'<'}</Button>
+        <Button onPress = {decrementDate}>{'<'}</Button>
         <Button onPress={showDatePicker}>{dateTostring(date)}</Button>
-        <Button onPress = {decrementDate}>{'>'}</Button>
+        <Button onPress = {incrementDate}>{'>'}</Button>
       </View>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}

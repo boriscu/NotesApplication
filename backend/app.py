@@ -73,6 +73,17 @@ def update_articles(id):
     db.session.commit()
     return article_schema.jsonify(article)
 
+@app.route('/get_by_date/<uidate>/', methods = ['GET'])
+def get_by_date_articles(uidate):
+    articles = Articles.query.filter_by(uidate = uidate)
+    results = articles_schema.dump(articles)
+    return jsonify(results)
+    # results = []
+    # for article in all_articles:
+    #     if str(article.uidate) == str(uidate):
+    #         results.append(article)
+
+
 @app.route('/delete/<id>/', methods = ['DELETE'])
 def delete_article(id):
     article = Articles.query.get(id)
@@ -82,8 +93,7 @@ def delete_article(id):
     return article_schema.jsonify(article)
 ###############################################
 if __name__ == "__main__":
-    app.run(host = '192.168.56.1',port = 3000, debug=True) 
-
+    app.run(host = '192.168.56.1',port = 3000, debug=True)
 # db.create_all()
 # db.session.commit()
 #39:00
