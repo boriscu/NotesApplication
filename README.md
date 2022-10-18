@@ -1,3 +1,6 @@
+# Sprint sastanci
+  Svaki utorak 21:00 na discordu, podlozno promenama
+  
 # PRVI ZADATAK
 - Koriscenje Trel-a i Git-a : Pogledati na Trelo-u zadatak, odraditi ga, i oznaciti da je zavrsen
 
