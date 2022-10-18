@@ -78,11 +78,6 @@ def get_by_date_articles(uidate):
     articles = Articles.query.filter_by(uidate = uidate)
     results = articles_schema.dump(articles)
     return jsonify(results)
-    # results = []
-    # for article in all_articles:
-    #     if str(article.uidate) == str(uidate):
-    #         results.append(article)
-
 
 @app.route('/delete/<id>/', methods = ['DELETE'])
 def delete_article(id):

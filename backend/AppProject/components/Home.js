@@ -71,19 +71,22 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
   I onda posle u htmlu pristupamo sa {state.count}, {state.showText} a kod onClicka kazemo dispatch({type:"INCREMENT"})
   */
   const loadData = () => {
-    fetch(`http://192.168.56.1:3000/get_by_date/${dateTostring(date)}`, {
-      method:'GET'
+    const dateString = dateTostring(date)
+    fetch(`http://192.168.56.1:3000/get_by_date/${dateString}/`, {
+      method:'GET',
+      headers: {
+        'Content-Type' : 'application/json'
+      }
     })
     .then(resp => resp.json()) //Odavde dobijemo article
     .then(article => {
       setData(article) //data = article
       setIsLoading(false)
-      errCount = 0
     })
     .catch(error => {
       if(error.message == "Network request failed")
       {
-        //TODO smisliti resenje
+        console.log("Greska u mrezi: " + error.message)
       }
       else
         console.log(error)
@@ -93,7 +96,7 @@ export default function Home(props) { //Props ne mozemo menjati, sta prosledimo 
   //Poziva se svaki put kada se stranica re-renderuje, napomena svaki put kad promenimo state stranice ona se re-renderuje(useState)
   useEffect(() => {
     loadData()
-  }, [data]) //U [] idu sva stanja koja zelimo da pratimo, u nasem slucaju ne pratimo ni jedno posebno ali mogli smo napisati [data]
+  }, [date]) //U [] idu sva stanja koja zelimo da pratimo, u nasem slucaju ne pratimo ni jedno posebno ali mogli smo napisati [data]
   //Preporucljivo je uvek staviti [] na kraj da se ne bi pozivalo za sve, nastane haos
 
   const clickedItem = (data) => {
