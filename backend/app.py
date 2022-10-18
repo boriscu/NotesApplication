@@ -92,3 +92,5 @@ if __name__ == "__main__":
 # db.create_all()
 # db.session.commit()
 #39:00
+
+#Janovic zna git
