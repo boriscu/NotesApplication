@@ -56,3 +56,4 @@ i normalno pokreni program sa python app.py(pozicioniran si u ./backend), kad se
 boris
 anja<3
 Nile
+Provera kako radi git desktop idemooo

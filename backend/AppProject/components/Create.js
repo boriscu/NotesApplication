@@ -43,7 +43,6 @@ function Create(props) {
 
         <Button
             style = {{margin:10}}
-            icon = "pencil"
             mode = "contained"
             onPress={()=>insertData()}
         >Insert article</Button>
