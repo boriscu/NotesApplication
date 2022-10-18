@@ -27,7 +27,10 @@ export default function Details(props) {
           <Text style = {{fontSize:20, marginTop:10}}>
             {data.body}
           </Text>
-          <Text style = {{fontSize:15}}>
+          <Text style = {{fontSize:20}}>
+            {data.uidate}
+          </Text>
+          <Text style = {{fontSize:10}}>
             {data.date}
           </Text>
           
