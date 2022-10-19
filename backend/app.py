@@ -91,10 +91,10 @@ def get_by_date_articles(uidate):
 
 @app.route("/delete/<id>/", methods=["DELETE"])
 def delete_article(id):
-    article = Articles.query.get(id)
+    Articles.query.filter_by(id = id).delete()
     db.session.commit()
 
-    return article_schema.jsonify(article)
+    return article_schema.jsonify(Articles.query.filter_by(id=id))
 
 
 ###############################################
