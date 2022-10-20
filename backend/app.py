@@ -61,10 +61,10 @@ workingset_schema = WorkingSetSchema()
 workingsets_schema = WorkingSetSchema(many=True)
 
 
-###############################################
-# Rute/Komande za bazu
+###################################################
+# ROUTES
 
-
+# GET ROUTES
 @app.route("/get/excercises", methods=["GET"])
 def get_excercises():
     all_excercises = Excercises.query.all()
@@ -77,7 +77,6 @@ def get_workingsets():
     results = workingsets_schema.dump(all_workingsets)
     return jsonify(results)
 
-
 @app.route("/get/excercises/<id>/", methods=["GET"])
 def post_details(id):
     excercise = Excercises.query.get(
@@ -85,12 +84,20 @@ def post_details(id):
     )  # Getuje artikl uz que-a artikala sa odgovarajucim id-ijem
     return excercise_schema.jsonify(excercise)  # Ispise nam rezultat operacije u postmanu
 
+@app.route("/get/workingsets/<id>/", methods = ["GET"])
+def get_workingsets_id(id):
+    workingset = WorkingSets.query.get(id)
+    return workingset_schema.jsonify(workingset)
+
 @app.route("/get_by_date/excercises/<uidate>/", methods=["GET"])
 def get_by_date_excercises(uidate):
     excercises = Excercises.query.filter_by(uidate=uidate)
     results = excercises_schema.dump(excercises)
     return jsonify(results)
 
+###################################################
+
+# POST ROUTES
 @app.route("/add/excercises", methods=["POST"])
 def add_excercises():
     title = request.json["title"]
@@ -113,7 +120,9 @@ def add_workingsets():
     db.session.commit()
     return workingset_schema.jsonify(workingsets)
 
+###################################################
 
+# PUT ROUTES
 @app.route("/update/excercises/<id>/", methods=["PUT"])
 def update_excercises(id):
     excercise = Excercises.query.get(id)
@@ -129,9 +138,25 @@ def update_excercises(id):
     db.session.commit()
     return excercise_schema.jsonify(excercise)
 
+@app.route("/update/workingsets/<id>/", methods=["PUT"])
+def update_workingsets(id):
+    workingset = WorkingSets.query.get(id)
+
+    weight = request.json["weight"]  # Uzima title i category koji smo mu mi otkucali
+    reps = request.json["reps"]
+    comment = request.json["comment"]
+
+    workingset.weight = weight
+    workingset.reps = reps
+    workingset.comment = comment
+
+    db.session.commit()
+    return excercise_schema.jsonify(workingset)
 
 
+###################################################
 
+# DELETE ROUTES
 @app.route("/delete/excercises/<id>/", methods=["DELETE"])
 def delete_excercise(id):
     Excercises.query.filter_by(id = id).delete()
@@ -139,8 +164,15 @@ def delete_excercise(id):
 
     return excercise_schema.jsonify(Excercises.query.filter_by(id=id))
 
+@app.route("/delete/workingsets/<id>/", methods=["DELETE"])
+def delete_workingset(id):
+    WorkingSets.query.filter_by(id = id).delete()
+    db.session.commit()
 
-###############################################
+    return workingsets_schema.jsonify(WorkingSets.query.filter_by(id=id))
+
+
+###################################################
 if __name__ == "__main__":
     app.run(host="192.168.56.1", port=3000, debug=True)
 # db.create_all()
