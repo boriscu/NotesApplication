@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './components/Home';
@@ -19,6 +20,14 @@ function App() { //Imamo funkcionalne(rcf) i klasne komponente(rce), ovo je funk
   const [localData, setLocalData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
+  const storeData = async (value) => {
+    try{
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem('Excercises', jsonValue)
+    }catch(e){
+      console.log(e)
+    }
+  }
   useEffect( () => {
     fetch(`http://192.168.56.1:3000/get/excercises`, {
       method: "GET",
@@ -29,6 +38,7 @@ function App() { //Imamo funkcionalne(rcf) i klasne komponente(rce), ovo je funk
     .then((resp)=>resp.json())
     .then((excercise) => {
       setLocalData(excercise);
+      storeData(excercise);
       setIsLoading(false);
     })
     .catch((error => console.log(error)))

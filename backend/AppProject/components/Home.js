@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList} from "react-native";
 import { Card, FAB, Button } from "react-native-paper"; //FAB je Floating action button
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 export default function Home(props) {
@@ -24,12 +26,23 @@ export default function Home(props) {
     "December",
   ];
 
-  const localData = props.route.params.localData
-
-  //Postoji 3 tipa promenljivih u riektu, const var i let. Const se ne menja, var moze i ne mora, let se menja. Takodje var je globalna prom a let samo u bloku koda
-  //Usestate hook koristimo za promenu variable u realnom vremenu, standard je const[promenljiva, setPromenljiva] = useState(inicijalnaVr)
-  //Da bi menjali prom ne mozemo samo reci data++ nego moramo koristiti set funkciju, npr setProm(prom+1)
   const [data, setData] = useState([]);
+
+  const loadAsyncData = async() => {
+    try {
+      var jsonValue, value;
+      value = await AsyncStorage.getItem('Excercises').then(
+        (values) => {
+          jsonValue = JSON.parse(values)
+        });
+    }catch(error){
+      console.log('Error: ', error);
+    }
+    setData(jsonValue)
+    setIsLoading(false);
+    return jsonValue
+  }
+  
   const [loading, setIsLoading] = useState(true);
 
   const [date, setDate] = useState(new Date());
@@ -108,9 +121,10 @@ export default function Home(props) {
 
   useFocusEffect(
     React.useCallback(() => {
-      loadData();
+      //loadData();
+      loadAsyncData();
       return () => {
-        //alert(dateTostring(date))
+        
       };
     }, [date])
   );
