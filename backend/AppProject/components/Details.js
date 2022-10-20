@@ -6,7 +6,7 @@ export default function Details(props) {
   const data = props.route.params.data;
 
   const deleteData = (data) => {
-    fetch(`http:///192.168.56.1:3000/delete/${data.id}/`, {
+    fetch(`http:///192.168.56.1:3000/delete/excercises/${data.id}/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

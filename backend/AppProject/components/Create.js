@@ -9,7 +9,7 @@ function Create(props) {
   const uidate = props.route.params.uidate;
 
   const insertData = () => {
-    fetch("http:///192.168.56.1:3000/add ", {
+    fetch("http:///192.168.56.1:3000/add/excercises ", {
       method: "POST", //Metode npr get,pot,put,delete... get je default ako nista ne stavimo
       headers: {
         "Content-Type": "application/json",

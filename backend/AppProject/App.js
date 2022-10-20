@@ -20,7 +20,7 @@ function App() { //Imamo funkcionalne(rcf) i klasne komponente(rce), ovo je funk
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect( () => {
-    fetch(`http://192.168.56.1:3000/get`, {
+    fetch(`http://192.168.56.1:3000/get/excercises`, {
       method: "GET",
       headers: {
         "Content-Type" : "application/json",

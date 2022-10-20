@@ -9,7 +9,7 @@ export default function Edit(props) {
 
   const updateData = () => {
     //Kada koristimo `$` to predstavlja identifikator objekta
-    fetch(`http:///192.168.56.1:3000/update/${data.id}/`, {
+    fetch(`http:///192.168.56.1:3000/update/excercises/${data.id}/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

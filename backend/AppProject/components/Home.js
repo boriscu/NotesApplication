@@ -88,7 +88,7 @@ export default function Home(props) {
 
   const loadData = () => {
     const dateString = dateTostring(date);
-    fetch(`http://192.168.56.1:3000/get_by_date/${dateString}/`, {
+    fetch(`http://192.168.56.1:3000/get_by_date/excercises/${dateString}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
