@@ -94,9 +94,9 @@ export default function Home(props) {
         "Content-Type": "application/json",
       },
     })
-      .then((resp) => resp.json()) //Odavde dobijemo article
-      .then((article) => {
-        setData(article); //data = article
+      .then((resp) => resp.json()) //Odavde dobijemo excercise
+      .then((excercise) => {
+        setData(excercise); //data = excercise
         setIsLoading(false);
       })
       .catch((error) => {

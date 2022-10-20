@@ -27,8 +27,8 @@ function App() { //Imamo funkcionalne(rcf) i klasne komponente(rce), ovo je funk
       },
     })
     .then((resp)=>resp.json())
-    .then((article) => {
-      setLocalData(article);
+    .then((excercise) => {
+      setLocalData(excercise);
       setIsLoading(false);
     })
     .catch((error => console.log(error)))

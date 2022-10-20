@@ -1,3 +1,4 @@
+from unicodedata import category
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 import datetime
@@ -12,89 +13,88 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 # Definisanje polja tabele
-class Articles(db.Model):
+class Excercises(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
-    body = db.Column(db.Text)
+    category = db.Column(db.Text)
     date = db.Column(db.DateTime, default=datetime.datetime.now)
     uidate = db.Column(db.Date)
 
-    def __init__(self, title, body, uidate):
+    def __init__(self, title, category, uidate):
         self.title = title
-        self.body = body
+        self.category = category
         self.uidate = uidate
-
 
 # Serijalizacija, konvertuje kompleksne tipove podataka(json) u i iz pajtonovih objekata
 # load - deserijalizacije, dump - serijalizacija
-class ArticleSchema(ma.Schema):
+class ExcerciseSchema(ma.Schema):
     class Meta:
-        fields = ("id", "title", "body", "date", "uidate")
+        fields = ("id", "title", "category", "date", "uidate")
 
 
-article_schema = ArticleSchema()
-articles_schema = ArticleSchema(many=True)
+excercise_schema = ExcerciseSchema()
+excercises_schema = ExcerciseSchema(many=True)
 
 ###############################################
 # Rute/Komande za bazu
 
 
 @app.route("/get", methods=["GET"])
-def get_articles():
-    all_articles = Articles.query.all()
-    results = articles_schema.dump(all_articles)  # serijalizacija
+def get_excercises():
+    all_excercises = Excercises.query.all()
+    results = excercises_schema.dump(all_excercises)  # serijalizacija
     return jsonify(results)  # Konvertuje json output u objekat
 
 
 @app.route("/get/<id>/", methods=["GET"])
 def post_details(id):
-    article = Articles.query.get(
+    excercise = Excercises.query.get(
         id
     )  # Getuje artikl uz que-a artikala sa odgovarajucim id-ijem
-    return article_schema.jsonify(article)  # Ispise nam rezultat operacije u postmanu
+    return excercise_schema.jsonify(excercise)  # Ispise nam rezultat operacije u postmanu
 
 
 @app.route("/add", methods=["POST"])
-def add_article():
+def add_excercises():
     title = request.json["title"]
-    body = request.json["body"]
+    category = request.json["category"]
     uidate = request.json["uidate"]
 
-    articles = Articles(title, body, uidate)  # Kreira artikl sa json title-om i body-em
-    db.session.add(articles)
+    excercises = Excercises(title, category, uidate)  # Kreira artikl sa json title-om i category-em
+    db.session.add(excercises)
     db.session.commit()
-    return article_schema.jsonify(articles)
+    return excercise_schema.jsonify(excercises)
 
 
 @app.route("/update/<id>/", methods=["PUT"])
-def update_articles(id):
-    article = Articles.query.get(id)
+def update_excercises(id):
+    excercise = Excercises.query.get(id)
 
-    title = request.json["title"]  # Uzima title i body koji smo mu mi otkucali
-    body = request.json["body"]
+    title = request.json["title"]  # Uzima title i category koji smo mu mi otkucali
+    category = request.json["category"]
     uidate = request.json["uidate"]
 
-    article.title = title
-    article.body = body
-    article.uidate = uidate
+    excercise.title = title
+    excercise.category = category
+    excercise.uidate = uidate
 
     db.session.commit()
-    return article_schema.jsonify(article)
+    return excercise_schema.jsonify(excercise)
 
 
 @app.route("/get_by_date/<uidate>/", methods=["GET"])
-def get_by_date_articles(uidate):
-    articles = Articles.query.filter_by(uidate=uidate)
-    results = articles_schema.dump(articles)
+def get_by_date_excercises(uidate):
+    excercises = Excercises.query.filter_by(uidate=uidate)
+    results = excercises_schema.dump(excercises)
     return jsonify(results)
 
 
 @app.route("/delete/<id>/", methods=["DELETE"])
-def delete_article(id):
-    Articles.query.filter_by(id = id).delete()
+def delete_excercise(id):
+    Excercises.query.filter_by(id = id).delete()
     db.session.commit()
 
-    return article_schema.jsonify(Articles.query.filter_by(id=id))
+    return excercise_schema.jsonify(Excercises.query.filter_by(id=id))
 
 
 ###############################################
