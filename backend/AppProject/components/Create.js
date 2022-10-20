@@ -5,16 +5,16 @@ import { TextInput, Button } from "react-native-paper";
 function Create(props) {
   const [title, setTitle] = useState(""); //Use state je tip hook-a, on nam sluzi da pratimo stanje neke komponente. Prima inicijalno stanje i funkciju koja ga menja
   //Mozemo napisati i tipa useState("red") pa ce samo javiti kada se promeni stanje od red
-  const [body, setBody] = useState("");
+  const [category, setCategory] = useState("");
   const uidate = props.route.params.uidate;
 
   const insertData = () => {
-    fetch("http:///192.168.56.1:3000/add ", {
+    fetch("http:///192.168.56.1:3000/add/excercises ", {
       method: "POST", //Metode npr get,pot,put,delete... get je default ako nista ne stavimo
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: title, body: body, uidate: uidate }), //Kazemo da saljemo objekat u kome imamo title i body
+      body: JSON.stringify({ title: title, category: category, uidate: uidate }), //Kazemo da saljemo objekat u kome imamo title i body
     })
       .then((resp) => resp.json()) //.then je promise i on se izvrsava samo ako se ovaj kod pre njega izvrsio
       //Arrow funkcije su u sustini skraceni zapis obicnih funkcija (parametar) => {funkcija}
@@ -36,11 +36,11 @@ function Create(props) {
       <TextInput
         style={{ padding: 10 }}
         label="Description"
-        value={body}
+        value={category}
         mode="outlined"
         multiline
         numberOfLines={10}
-        onChangeText={(text) => setBody(text)}
+        onChangeText={(text) => setCategory(text)}
       />
 
       <Button

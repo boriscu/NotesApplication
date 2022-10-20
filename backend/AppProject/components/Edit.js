@@ -5,16 +5,16 @@ import { TextInput, Button } from "react-native-paper";
 export default function Edit(props) {
   const data = props.route.params.data;
   const [title, setTitle] = useState(data.title);
-  const [body, setBody] = useState(data.body);
+  const [category, setCategory] = useState(data.category);
 
   const updateData = () => {
     //Kada koristimo `$` to predstavlja identifikator objekta
-    fetch(`http:///192.168.56.1:3000/update/${data.id}/`, {
+    fetch(`http:///192.168.56.1:3000/update/excercises/${data.id}/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: title, body: body, uidate: data.uidate }),
+      body: JSON.stringify({ title: title, category: category, uidate: data.uidate }),
     })
       .then((resp) => resp.json())
       .then((data) => {
@@ -36,11 +36,11 @@ export default function Edit(props) {
       <TextInput
         style={{ padding: 10 }}
         label="Description"
-        value={body}
+        value={category}
         mode="outlined"
         multiline
         numberOfLines={10}
-        onChangeText={(text) => setBody(text)}
+        onChangeText={(text) => setCategory(text)}
       />
 
       <Button

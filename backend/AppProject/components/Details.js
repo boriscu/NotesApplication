@@ -6,7 +6,7 @@ export default function Details(props) {
   const data = props.route.params.data;
 
   const deleteData = (data) => {
-    fetch(`http:///192.168.56.1:3000/delete/${data.id}/`, {
+    fetch(`http:///192.168.56.1:3000/delete/excercises/${data.id}/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export default function Details(props) {
     <ScrollView>
       <View style={styles.viewStyle}>
         <Text style={{ fontSize: 25 }}>{data.title}</Text>
-        <Text style={{ fontSize: 20, marginTop: 10 }}>{data.body}</Text>
+        <Text style={{ fontSize: 20, marginTop: 10 }}>{data.category}</Text>
         <Text style={{ fontSize: 20 }}>{data.uidate}</Text>
         <Text style={{ fontSize: 10 }}>{data.date}</Text>
 

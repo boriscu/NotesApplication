@@ -4,6 +4,7 @@ import { Card, FAB, Button } from "react-native-paper"; //FAB je Floating action
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useFocusEffect } from "@react-navigation/native";
 
+
 export default function Home(props) {
   //Props ne mozemo menjati, sta prosledimo u zagradama to uvek stoji, zbog toga mozemo koristiti state
   //Dok kod klasne komponente mozemo menjati props
@@ -22,6 +23,8 @@ export default function Home(props) {
     "November",
     "December",
   ];
+
+  const localData = props.route.params.localData
 
   //Postoji 3 tipa promenljivih u riektu, const var i let. Const se ne menja, var moze i ne mora, let se menja. Takodje var je globalna prom a let samo u bloku koda
   //Usestate hook koristimo za promenu variable u realnom vremenu, standard je const[promenljiva, setPromenljiva] = useState(inicijalnaVr)
@@ -85,15 +88,15 @@ export default function Home(props) {
 
   const loadData = () => {
     const dateString = dateTostring(date);
-    fetch(`http://192.168.56.1:3000/get_by_date/${dateString}/`, {
+    fetch(`http://192.168.56.1:3000/get_by_date/excercises/${dateString}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((resp) => resp.json()) //Odavde dobijemo article
-      .then((article) => {
-        setData(article); //data = article
+      .then((resp) => resp.json()) //Odavde dobijemo excercise
+      .then((excercise) => {
+        setData(excercise); //data = excercise
         setIsLoading(false);
       })
       .catch((error) => {
@@ -106,7 +109,6 @@ export default function Home(props) {
   useFocusEffect(
     React.useCallback(() => {
       loadData();
-
       return () => {
         //alert(dateTostring(date))
       };
