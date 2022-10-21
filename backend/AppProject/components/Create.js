@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TextInput, Button } from "react-native-paper";
@@ -23,6 +24,18 @@ function Create(props) {
       })
       .catch((error) => console.log(error)); //Ako imamo eror samo ispisemo
   };
+
+  // const insertAsyncData = async(title, category, uidate) => {
+  //   try{
+  //     AsyncStorage.getItem('Excercises').then( excercises => {
+  //       excercises = JSON.parse(excercises);
+  //       excercises.push({"title":title,"category":category,"uidate":uidate});
+  //       AsyncStorage.setItem('Excercises', JSON.stringify(excercises));
+  //     }).done()
+  //   }catch(e){
+  //     console.log(e)
+  //   }
+  // }
   return (
     <View>
       <TextInput
@@ -47,7 +60,9 @@ function Create(props) {
         style={{ margin: 10 }}
         icon="pencil"
         mode="contained"
-        onPress={() => insertData()}
+        onPress={() => {insertData(); 
+          //insertAsyncData(title,category,uidate)
+        }}
       >
         Insert article
       </Button>
