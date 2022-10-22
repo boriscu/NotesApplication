@@ -1,7 +1,7 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import { View, ScrollView, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
-//Dugme u poseban view jer je view kao labela
 export default function Details(props) {
   const data = props.route.params.data;
 
@@ -16,6 +16,21 @@ export default function Details(props) {
         props.navigation.navigate("Home");
       })
       .catch((error) => console.log(error));
+  };
+
+  const deleteAsyncData = async (id) => {
+    try {
+      AsyncStorage.getItem("Excercises")
+        .then((excercises) => {
+          excercises = JSON.parse(excercises);
+          excercises = excercises.filter((excercise) => excercise.id !== id);
+          AsyncStorage.setItem("Excercises", JSON.stringify(excercises));
+          props.navigation.navigate("Home");
+        })
+        .done();
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <ScrollView>
@@ -37,7 +52,10 @@ export default function Details(props) {
           <Button
             icon="delete"
             mode="contained"
-            onPress={() => deleteData(data)}
+            onPress={() => {
+              deleteAsyncData(data.id);
+              deleteData(data);
+            }}
           >
             Delete
           </Button>

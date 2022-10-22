@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import { Card, FAB, Button } from "react-native-paper"; //FAB je Floating action button
+import { Card, FAB, Button } from "react-native-paper"; 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useFocusEffect } from "@react-navigation/native";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home(props) {
   //Props ne mozemo menjati, sta prosledimo u zagradama to uvek stoji, zbog toga mozemo koristiti state
@@ -24,13 +24,32 @@ export default function Home(props) {
     "December",
   ];
 
-  const localData = props.route.params.localData
-
-  //Postoji 3 tipa promenljivih u riektu, const var i let. Const se ne menja, var moze i ne mora, let se menja. Takodje var je globalna prom a let samo u bloku koda
-  //Usestate hook koristimo za promenu variable u realnom vremenu, standard je const[promenljiva, setPromenljiva] = useState(inicijalnaVr)
-  //Da bi menjali prom ne mozemo samo reci data++ nego moramo koristiti set funkciju, npr setProm(prom+1)
   const [data, setData] = useState([]);
   const [loading, setIsLoading] = useState(true);
+
+  function numericDate(d) {
+    let currentDay = d.getDate();
+    let currentMonth = d.getMonth() + 1;
+    let currentYear = d.getFullYear();
+    let currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+    return currentDate;
+  }
+
+  const loadAsyncData = async () => {
+    try {
+      var jsonValue;
+      value = await AsyncStorage.getItem("Excercises").then((values) => {
+        values = JSON.parse(values);
+        values = values.filter((value) => value.uidate == numericDate(date));
+        jsonValue = values;
+        setData(jsonValue);
+        setIsLoading(false);
+      });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+    return jsonValue;
+  };
 
   const [date, setDate] = useState(new Date());
 
@@ -94,9 +113,9 @@ export default function Home(props) {
         "Content-Type": "application/json",
       },
     })
-      .then((resp) => resp.json()) //Odavde dobijemo excercise
+      .then((resp) => resp.json())
       .then((excercise) => {
-        setData(excercise); //data = excercise
+        setData(excercise);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -108,18 +127,11 @@ export default function Home(props) {
 
   useFocusEffect(
     React.useCallback(() => {
-      loadData();
-      return () => {
-        //alert(dateTostring(date))
-      };
+      //loadData();
+      loadAsyncData();
+      return () => {};
     }, [date])
   );
-
-  //Poziva se svaki put kada se stranica re-renderuje, napomena svaki put kad promenimo state stranice ona se re-renderuje(useState)
-  // useEffect(() => {
-  //   loadData();
-  // }, [date]); //U [] idu sva stanja koja zelimo da pratimo, u nasem slucaju ne pratimo ni jedno posebno ali mogli smo napisati [data]
-  // //Preporucljivo je uvek staviti [] na kraj da se ne bi pozivalo za sve, nastane haos
 
   const clickedItem = (data) => {
     props.navigation.navigate("Details", { data: data });
@@ -134,7 +146,7 @@ export default function Home(props) {
       </Card>
     );
   };
-  //Ovde je onPress realizovano funkcionalno
+
   return (
     <View style={{ flex: 1 }}>
       <View
