@@ -39,14 +39,12 @@ export default function Home(props) {
 
   const loadAsyncData = async() => {
     try {
-      var jsonValue, value;
+      var jsonValue
       value = await AsyncStorage.getItem('Excercises').then(
         (values) => {
-          jsonValue = JSON.parse(values)
-          var jsonValueFiltered = jsonValue.filter(function (el){
-            return el.uidate == date.toJSON()
-          })
-          console.log(jsonValueFiltered);
+          values = JSON.parse(values);
+          values = values.filter(value => value.uidate == numericDate(date));
+          jsonValue = values;
           setData(jsonValue);
           setIsLoading(false);
         });
