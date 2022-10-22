@@ -27,6 +27,15 @@ export default function Home(props) {
   ];
 
   const [data, setData] = useState([]);
+  const [loading, setIsLoading] = useState(true);
+
+  function numericDate(d){
+    let currentDay = d.getDate();
+    let currentMonth = d.getMonth() + 1;
+    let currentYear = d.getFullYear();
+    let currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+    return currentDate;
+  }
 
   const loadAsyncData = async() => {
     try {
@@ -34,16 +43,19 @@ export default function Home(props) {
       value = await AsyncStorage.getItem('Excercises').then(
         (values) => {
           jsonValue = JSON.parse(values)
+          var jsonValueFiltered = jsonValue.filter(function (el){
+            return el.uidate == date.toJSON()
+          })
+          console.log(jsonValueFiltered);
+          setData(jsonValue);
+          setIsLoading(false);
         });
     }catch(error){
       console.log('Error: ', error);
     }
-    setData(jsonValue)
-    setIsLoading(false);
     return jsonValue
   }
   
-  const [loading, setIsLoading] = useState(true);
 
   const [date, setDate] = useState(new Date());
 

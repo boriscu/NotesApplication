@@ -20,22 +20,23 @@ function Create(props) {
       .then((resp) => resp.json()) //.then je promise i on se izvrsava samo ako se ovaj kod pre njega izvrsio
       //Arrow funkcije su u sustini skraceni zapis obicnih funkcija (parametar) => {funkcija}
       .then((data) => {
-        props.navigation.navigate("Home");
+        insertAsyncData(data)
       })
       .catch((error) => console.log(error)); //Ako imamo eror samo ispisemo
   };
 
-  // const insertAsyncData = async(title, category, uidate) => {
-  //   try{
-  //     AsyncStorage.getItem('Excercises').then( excercises => {
-  //       excercises = JSON.parse(excercises);
-  //       excercises.push({"title":title,"category":category,"uidate":uidate});
-  //       AsyncStorage.setItem('Excercises', JSON.stringify(excercises));
-  //     }).done()
-  //   }catch(e){
-  //     console.log(e)
-  //   }
-  // }
+  const insertAsyncData = async(data) => {
+    try{
+      AsyncStorage.getItem('Excercises').then( excercises => {
+        excercises = JSON.parse(excercises);
+        excercises.push(data);
+        AsyncStorage.setItem('Excercises', JSON.stringify(excercises));
+        props.navigation.navigate("Home");
+      }).done()
+    }catch(e){
+      console.log(e)
+    }
+  }
   return (
     <View>
       <TextInput
@@ -60,9 +61,7 @@ function Create(props) {
         style={{ margin: 10 }}
         icon="pencil"
         mode="contained"
-        onPress={() => {insertData(); 
-          //insertAsyncData(title,category,uidate)
-        }}
+        onPress={() => insertData() }
       >
         Insert article
       </Button>
