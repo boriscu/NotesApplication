@@ -25,6 +25,7 @@ class Excercises(db.Model):
     def __init__(self, title, category, uidate):
         self.title = title
         self.category = category
+        self.uidate = uidate
 
 
 class ExcerciseSchema(ma.Schema):
