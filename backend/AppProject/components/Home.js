@@ -181,8 +181,9 @@ export default function Home(props) {
         small={false}
         icon="plus"
         theme={{ colors: { accent: "green" } }}
-        onPress={() =>
+        onPress={() => {
           props.navigation.navigate("Create", { uidate: date.toJSON() })
+        }
         }
       />
     </View>
