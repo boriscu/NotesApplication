@@ -9,21 +9,21 @@ U ovoj sekciji nalaze se sve komponente i njihove funkcije vezane za bekend (pyt
 #### Get Routes
 ##### "/get/excercises"
 ##### "/get/workingsets"
-##### "/get/excercises/<id>"
-##### "/get/workingsets/<id>"
-##### "/get_by_date/excercises/<uidate>"
+##### "/get/excercises/id"
+##### "/get/workingsets/id"
+##### "/get_by_date/excercises/uidate"
 
 #### Post Routes
 ##### "/add/excercises" 
 ##### "/add/workingsets"
 
 #### Put Routes
-##### "/update/excercises/<id>/"
-##### "/update/workingsets/<id>/"  
+##### "/update/excercises/id/"
+##### "/update/workingsets/id/"  
 
 #### Delete Routes
-##### "/delete/excercises/<id>/"
-##### "/delete/workingsets/<id>/"
+##### "/delete/excercises/id/"
+##### "/delete/workingsets/id/"
 
 # Frontend Components
 U ovoj sekciji nalaze se sve komponente i njihove funkcije vezane za frontend(js)
