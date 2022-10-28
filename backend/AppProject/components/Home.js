@@ -31,11 +31,16 @@ export default function Home(props) {
   const [EandS, setEandS] = useState([]);
   const [loadingES, setIsLoadingEs] = useState(true);
 
+  const [date, setDate] = useState(new Date());
+  useEffect( () => {loadAsync()}, [date, setIsLoadingEs]);
+  
+
   function numericDate(d) {
     let currentDay = d.getDate();
     let currentMonth = d.getMonth() + 1;
     let currentYear = d.getFullYear();
     let currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+    console.log(date);
     return currentDate;
   }
 
@@ -105,9 +110,6 @@ export default function Home(props) {
     }
   }
   
-
-  const [date, setDate] = useState(new Date());
-
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
@@ -120,7 +122,6 @@ export default function Home(props) {
 
   const handleConfirm = (date) => {
     setDate(date);
-    loadAsync();
     hideDatePicker();
   };
 
@@ -128,14 +129,12 @@ export default function Home(props) {
     let newDate = new Date(date.getTime());
     newDate.setDate(date.getDate() + 1);
     setDate(newDate);
-    loadAsync();
   };
 
   const decrementDate = () => {
     let newDate = new Date(date.getTime());
     newDate.setDate(date.getDate() - 1);
-    setDate(newDate)
-    loadAsync();
+    setDate(newDate);
   };
 
   function dateTostring(d) {
@@ -208,12 +207,12 @@ export default function Home(props) {
   //   setIsLoadingEs(false);
   // }
 
-  useFocusEffect(
-    React.useCallback(() => {
-      loadAsync();
-      return () => {};
-    }, [])
-  );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     loadAsync();
+  //     return () => {};
+  //   }, [])
+  // );
 
   const clickedItem = (data) => {
     props.navigation.navigate("Details", { data: data });
