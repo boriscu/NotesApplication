@@ -295,3 +295,5 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
 });
+
+//https://stackoverflow.com/questions/34687091/can-i-execute-a-function-after-setstate-is-finished-updating
