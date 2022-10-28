@@ -19,6 +19,9 @@ function App() {
   const [localData, setLocalData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [localSets, setLocalSets] = useState([]);
+  const [isLoadingS, setIsLoadingS] = useState(true);
+
   const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value);
@@ -27,6 +30,15 @@ function App() {
       console.log(e);
     }
   };
+
+  const storeSets = async (value) => {
+    try{
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("WorkingSet", jsonValue);
+    } catch(e) {
+      console.log(e);
+    }
+  }
   useEffect(() => {
     fetch(`http://192.168.56.1:3000/get/excercises`, {
       method: "GET",
@@ -41,16 +53,33 @@ function App() {
         setIsLoading(false);
       })
       .catch((error) => console.log(error));
+    
+      
+    fetch(`http://192.168.56.1:3000/get/workingsets`, {
+      method: "GET",
+      headers: {
+        "Conent-Type": "application/json",
+      },
+    })
+    .then(resp=>resp.json())
+    .then((workingset) => {
+      setLocalSets(workingset);
+      storeSets(workingset);
+      setIsLoadingS(false);
+
+    })
+    .catch(error => console.log(error));
+      
   }, []);
 
-  if (!isLoading) {
+  if (!isLoading && !isLoadingS) {
     return (
       <View style={styles.container}>
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
             component={Home}
-            initialParams={{ localData: localData }}
+            initialParams={{ localData: localData, localSets: localSets}}
           />
           <Stack.Screen name="Create" component={Create} />
           <Stack.Screen name="Details" component={Details} />

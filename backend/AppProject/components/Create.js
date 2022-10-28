@@ -53,11 +53,9 @@ function Create(props) {
 
       <TextInput
         style={{ padding: 10 }}
-        label="Description"
+        label="Category"
         value={category}
         mode="outlined"
-        multiline
-        numberOfLines={10}
         onChangeText={(text) => setCategory(text)}
       />
 

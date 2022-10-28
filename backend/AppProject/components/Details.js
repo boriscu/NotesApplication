@@ -1,9 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
+import React, { useState } from "react";
 import { View, ScrollView, Text, StyleSheet } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, TextInput } from "react-native-paper";
+
 export default function Details(props) {
   const data = props.route.params.data;
+  const [weight, setWeight] = useState();
+  const [reps,setReps] = useState();
 
   const deleteData = (data) => {
     fetch(`http:///192.168.56.1:3000/delete/excercises/${data.id}/`, {
@@ -14,6 +17,26 @@ export default function Details(props) {
     })
       .then((data) => {
         props.navigation.navigate("Home");
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const insertWorkingSet = () => {
+    fetch("http:///192.168.56.1:3000/add/workingsets ", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        weight: weight,
+        reps: reps,
+        comment: " ",
+        excercise_name_id: data.id,
+      }),
+    })
+      .then((resp) => resp.json())
+      .then(data => {
+        props.navigation.navigate('Home');
       })
       .catch((error) => console.log(error));
   };
@@ -37,9 +60,30 @@ export default function Details(props) {
       <View style={styles.viewStyle}>
         <Text style={{ fontSize: 25 }}>{data.title}</Text>
         <Text style={{ fontSize: 20, marginTop: 10 }}>{data.category}</Text>
-        <Text style={{ fontSize: 20 }}>{data.uidate}</Text>
-        <Text style={{ fontSize: 10 }}>{data.date}</Text>
-
+        <View style = {styles.inputStyle}>
+          <TextInput
+            label = "Weight"
+            value = {weight}
+            mode = "outlined"
+            keyboardType= 'numeric'
+            onChangeText={(text) => setWeight(text)}
+          />
+          <TextInput      
+            label = "Reps"
+            value = {reps}
+            mode = "outlined"
+            keyboardType= 'numeric'
+            onChangeText={(text) => setReps(text)}
+          />
+          <Button
+          style={{margin: 10}}
+          icon="book-plus"
+          mode="contained"
+          onPress={() => insertWorkingSet()}
+          >
+            Add Set
+          </Button>
+        </View>
         <View style={styles.btnStyle}>
           <Button
             icon="update"
@@ -75,5 +119,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     margin: 15,
     padding: 10,
+  },
+  inputStyle: {
+    padding:20,
+    marginTop: 20,
+    justifyContent: "space-around",
+    flexDirection: "row",
   },
 });

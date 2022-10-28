@@ -47,10 +47,11 @@ class WorkingSets(db.Model):
 
     excercise_name = db.relationship("Excercises", foreign_keys=[excercise_name_id])
 
-    def __init__(self, weight, reps, comment):
+    def __init__(self, weight, reps, comment, excercise_name_id):
         self.weight = weight
         self.reps = reps
         self.comment = comment
+        self.excercise_name_id = excercise_name_id
 
 
 class WorkingSetSchema(ma.Schema):
@@ -119,8 +120,9 @@ def add_workingsets():
     weight = request.json["weight"]
     reps = request.json["reps"]
     comment = request.json["comment"]
+    excercise_name_id = request.json["excercise_name_id"]
 
-    workingsets = WorkingSets(weight, reps, comment)
+    workingsets = WorkingSets(weight, reps, comment, excercise_name_id)
     db.session.add(workingsets)
     db.session.commit()
     return workingset_schema.jsonify(workingsets)

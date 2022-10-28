@@ -24,8 +24,12 @@ export default function Home(props) {
     "December",
   ];
 
+  const [workingsetData, setWorkingsetData] = useState([]);
   const [data, setData] = useState([]);
   const [loading, setIsLoading] = useState(true);
+  const [loadingWS, setISLoadingWS] = useState(true);
+  const [EandS, setEandS] = useState([]);
+  const [loadingES, setIsLoadingEs] = useState(true);
 
   function numericDate(d) {
     let currentDay = d.getDate();
@@ -35,21 +39,72 @@ export default function Home(props) {
     return currentDate;
   }
 
-  const loadAsyncData = async () => {
+  // const loadAsyncData = async () => {
+  //   try {
+  //     var jsonValue;
+  //     value = await AsyncStorage.getItem("Excercises").then((values) => {
+  //       values = JSON.parse(values);
+  //       values = values.filter((value) => value.uidate == numericDate(date));
+  //       jsonValue = values;
+  //       setData(jsonValue);
+  //       setIsLoading(false);
+  //     });
+  //   } catch (error) {
+  //     console.log("Error: ", error);
+  //   }
+  //   return jsonValue;
+  // };
+
+  
+  // const loadAsyncWS = async () => {
+  //   try {
+  //     var jsonValue;
+  //     value = await AsyncStorage.getItem("WorkingSet").then((values) => {
+  //       values = JSON.parse(values);
+  //       jsonValue = values;
+  //       setWorkingsetData(jsonValue);
+  //       setISLoadingWS(false);
+        
+  //     });
+  //   } catch (error) {
+  //     console.log("Error: ", error);
+  //   }
+  //   return jsonValue;
+  // };
+
+  const loadAsync = async() => {
     try {
-      var jsonValue;
-      value = await AsyncStorage.getItem("Excercises").then((values) => {
-        values = JSON.parse(values);
-        values = values.filter((value) => value.uidate == numericDate(date));
-        jsonValue = values;
-        setData(jsonValue);
+      var jsonExcercises, jsonWorkingSets;
+      
+      excercise = await AsyncStorage.getItem("Excercises").then((excercises) => {
+        excercises = JSON.parse(excercises);
+        console.log(date);
+        excercises = excercises.filter((value => value.uidate == numericDate(date)));
+        jsonExcercises = excercises;
+        setData(jsonExcercises);
         setIsLoading(false);
-      });
-    } catch (error) {
+      })
+
+      workingset = await AsyncStorage.getItem("WorkingSet").then((workingsets) => {
+        jsonWorkingSets = JSON.parse(workingsets);
+        setWorkingsetData(jsonWorkingSets);
+        setISLoadingWS(false);
+      })
+
+      const tempData = data;
+      const tempWS = workingsetData;
+      for(var e in tempData){
+        var sets = tempWS.filter((value => value.excercise_name_id == data[e].id));
+        tempData[e].sets = sets;
+      }
+      setEandS(tempData);
+      setIsLoadingEs(false);
+    }
+    catch(error) {
       console.log("Error: ", error);
     }
-    return jsonValue;
-  };
+  }
+  
 
   const [date, setDate] = useState(new Date());
 
@@ -65,6 +120,7 @@ export default function Home(props) {
 
   const handleConfirm = (date) => {
     setDate(date);
+    loadAsync();
     hideDatePicker();
   };
 
@@ -72,12 +128,14 @@ export default function Home(props) {
     let newDate = new Date(date.getTime());
     newDate.setDate(date.getDate() + 1);
     setDate(newDate);
+    loadAsync();
   };
 
   const decrementDate = () => {
     let newDate = new Date(date.getTime());
     newDate.setDate(date.getDate() - 1);
-    setDate(newDate);
+    setDate(newDate)
+    loadAsync();
   };
 
   function dateTostring(d) {
@@ -125,69 +183,103 @@ export default function Home(props) {
       });
   };
 
+  const loadSets = () => {
+    fetch(`http://192.168.56.1:3000/get/workingsets`, {
+      method: "GET",
+      headers: {
+        "Conent-Type": "application/json",
+      },
+    })
+    .then(resp=>resp.json())
+    .then((workingset) => {
+      setWorkingsetData(workingset);
+      setISLoadingWS(false);
+    })
+    .catch(error => console.log(error));
+  }
+
+  // async function setToExcercise(){
+  //   const ret = data
+  //   for(var d in ret){
+  //     var sets = workingsetData.filter((value) => value.excercise_name_id == ret[d].id);
+  //     ret[d].sets = sets;
+  //   }
+  //   setEandS(ret);
+  //   setIsLoadingEs(false);
+  // }
+
   useFocusEffect(
     React.useCallback(() => {
-      //loadData();
-      loadAsyncData();
+      loadAsync();
       return () => {};
-    }, [date])
+    }, [])
   );
 
   const clickedItem = (data) => {
     props.navigation.navigate("Details", { data: data });
   };
 
-  const renderData = (item) => {
+  
+if(!loadingES)
+{  
     return (
-      <Card style={styles.cardStyle}>
-        <Text style={{ fontSize: 20 }} onPress={() => clickedItem(item)}>
-          {item.title}
-        </Text>
-      </Card>
-    );
-  };
+      <View style={{ flex: 1 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            marginLeft: 20,
+            justifyContent: "space-evenly",
+          }}
+        >
+          <Button onPress={decrementDate}>{"<"}</Button>
+          <Button onPress={showDatePicker}>{dateTostring(date)}</Button>
+          <Button onPress={incrementDate}>{">"}</Button>
+        </View>
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+        />
+        <FlatList
+            data={EandS}
+            renderItem={({ item }) => (
+              <Card style={styles.cardStyle}>
+                <Text style={{fontSize: 20}} onPress={()=>clickedItem(item)}>{item.title}</Text>
+                <FlatList
+                    data={item.sets}
+                    renderItem={({ item }) => (
+                    <Card styles={{margin: 10, padding: 10}}>
+                        <Text style={{fontSize: 10}} onPress={()=>console.log(EandS)}>{"Weight: " + item.weight + "KG " + "Reps: " + item.reps}</Text>
+                    </Card>
+                    )}
+                />
+              </Card>
+            )}
+            onRefresh={()=>loadAsync()}
+            refreshing={loadingES}
+            keyExtractor={(item, index) => index}
+          />
 
-  return (
-    <View style={{ flex: 1 }}>
-      <View
-        style={{
-          flexDirection: "row",
-          marginLeft: 20,
-          justifyContent: "space-evenly",
-        }}
-      >
-        <Button onPress={decrementDate}>{"<"}</Button>
-        <Button onPress={showDatePicker}>{dateTostring(date)}</Button>
-        <Button onPress={incrementDate}>{">"}</Button>
+        <FAB
+          style={styles.fab}
+          small={false}
+          icon="plus"
+          theme={{ colors: { accent: "green" } }}
+          onPress={() => {
+            props.navigation.navigate("Create", { uidate: date.toJSON() })
+          }
+          }
+        />
       </View>
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
-      <FlatList
-        data={data}
-        renderItem={({ item }) => {
-          return renderData(item);
-        }}
-        onRefresh={() => loadData()}
-        refreshing={loading}
-        keyExtractor={(item) => item.id}
-      />
-
-      <FAB
-        style={styles.fab}
-        small={false}
-        icon="plus"
-        theme={{ colors: { accent: "green" } }}
-        onPress={() => {
-          props.navigation.navigate("Create", { uidate: date.toJSON() })
-        }
-        }
-      />
-    </View>
-  );
+    );
+  }
+  else
+  {
+    return(
+      <Text>Loading...</Text>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
